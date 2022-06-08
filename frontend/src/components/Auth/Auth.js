@@ -2,9 +2,9 @@ import { useState, Fragment } from "react";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
 
-import WhiteWrap from "../UI/WhiteWrap";
+import Wrap from "../UI/Wrap";
 import classes from "./Auth.module.css";
-import domainUrl from "../../lib/domain-url";
+import { domainUrl } from "../../lib/domain-url";
 
 const Auth = () => {
   const history = useHistory();
@@ -29,39 +29,40 @@ const Auth = () => {
       return alert("Passowrd tidak sama!");
     }
 
-    let url;
+    let url, dataSend;
     if (chooseLogin) {
       url = `${domainUrl}/login`;
-      axios
-        .post(url, {
-          email: emailEntered,
-          password: pwdEntered,
-        })
-        .then((response) => {
-          console.log(response);
-          history.push("/homepage");
-        })
-        .catch((err) => {
-          alert(err);
-        });
+
+      dataSend = {
+        email: emailEntered,
+        password: pwdEntered,
+      };
     } else {
       url = `${domainUrl}/register`;
-      axios
-        .post(url, {
-          nama: nameEntered,
-          email: emailEntered,
-          noHp: noHpEntered,
-          alamat: alamatEntered,
-          password: pwdEntered,
-        })
-        .then((response) => {
-          console.log(response);
-          setChooseLogin(true);
-        })
-        .catch((err) => {
-          alert(err);
-        });
+
+      dataSend = {
+        name: nameEntered,
+        email: emailEntered,
+        phone: noHpEntered,
+        address: alamatEntered,
+        password: pwdEntered,
+      };
     }
+
+    axios
+      .post(url, {
+        dataSend,
+      })
+      .then((res) => {
+        if (chooseLogin) {
+          history.push("/homepage");
+        } else {
+          setChooseLogin(true);
+        }
+      })
+      .catch((err) => {
+        alert(err);
+      });
   };
 
   let title = "Register";
@@ -77,38 +78,74 @@ const Auth = () => {
         maxWidth: "90%",
       }}
     >
-      <WhiteWrap title={title}>
+      <Wrap title={title} backgroundColor="#f1f1f1">
         <form onSubmit={submitAuthHandler}>
           {!chooseLogin && (
             <div className="form-control">
               <label htmlFor="nama">Nama</label>
-              <input type="text" name="" id="nama" required />
+              <input
+                type="text"
+                name=""
+                id="nama"
+                required
+                onChange={(e) => setNameEntered(e.target.value)}
+              />
             </div>
           )}
           <div className="form-control">
             <label htmlFor="email">Email</label>
-            <input type="text" name="" id="email" required />
+            <input
+              type="text"
+              name=""
+              id="email"
+              required
+              onChange={(e) => setEmailEntered(e.target.value)}
+            />
           </div>
           {!chooseLogin && (
             <Fragment>
               <div className="form-control">
                 <label htmlFor="no_hp">No Handphone</label>
-                <input type="text" name="" id="no_hp" required />
+                <input
+                  type="text"
+                  name=""
+                  id="no_hp"
+                  required
+                  onChange={(e) => setNoHpEntered(e.target.value)}
+                />
               </div>
               <div className="form-control">
                 <label htmlFor="alamat">Alamat</label>
-                <textarea type="text" name="" id="alamat" required />
+                <textarea
+                  type="text"
+                  name=""
+                  id="alamat"
+                  required
+                  onChange={(e) => setAlamatEntered(e.target.value)}
+                />
               </div>
             </Fragment>
           )}
           <div className="form-control">
             <label htmlFor="password">Password</label>
-            <input type="password" name="" id="password" required />
+            <input
+              type="password"
+              name=""
+              id="password"
+              required
+              onChange={(e) => setPwdEntered(e.target.value)}
+            />
           </div>
           {!chooseLogin && (
             <div className="form-control">
               <label htmlFor="password_conf">Confirm Password</label>
-              <input type="password" name="" id="password_conf" required />
+              <input
+                type="password"
+                name=""
+                id="password_conf"
+                required
+                onChange={(e) => setPwdConfEntered(e.target.value)}
+              />
             </div>
           )}
           <div className="form-control">
@@ -125,7 +162,7 @@ const Auth = () => {
             Klik disini
           </span>
         </p>
-      </WhiteWrap>
+      </Wrap>
     </div>
   );
 };

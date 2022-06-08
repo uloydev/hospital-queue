@@ -1,0 +1,9 @@
+.homepage {
+  min-width: 20rem;
+  max-width: 90%;
+}
+.wrap {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}

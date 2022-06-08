@@ -1,0 +1,17 @@
+.main-link {
+  display: "flex";
+  flex-direction: "column";
+  justify-content: "center";
+  align-items: "center";
+}
+.item-link:hover {
+  cursor: pointer;
+}
+@media screen and (max-width: 1111px) {
+  .main-link {
+    display: "flex";
+    justify-content: "center";
+    align-items: "center";
+    flex-wrap: "wrap";
+  }
+}
