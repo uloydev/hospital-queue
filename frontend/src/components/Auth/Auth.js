@@ -1,10 +1,9 @@
 import { useState, Fragment } from "react";
 import { useHistory } from "react-router-dom";
-import axios from "axios";
 
 import Wrap from "../UI/Wrap";
 import classes from "./Auth.module.css";
-import { domainUrl } from "../../lib/domain-url";
+import API from "../../lib/api";
 
 const Auth = () => {
   const history = useHistory();
@@ -31,14 +30,14 @@ const Auth = () => {
 
     let url, dataSend;
     if (chooseLogin) {
-      url = `${domainUrl}/login`;
+      url = `/login`;
 
       dataSend = {
         email: emailEntered,
         password: pwdEntered,
       };
     } else {
-      url = `${domainUrl}/register`;
+      url = `/register`;
 
       dataSend = {
         name: nameEntered,
@@ -49,10 +48,9 @@ const Auth = () => {
       };
     }
 
-    axios
-      .post(url, {
-        dataSend,
-      })
+    API.post(url, {
+      dataSend,
+    })
       .then((res) => {
         if (chooseLogin) {
           history.push("/homepage");

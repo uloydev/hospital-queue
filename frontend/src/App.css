@@ -58,10 +58,20 @@ html {
   border: none;
   cursor: pointer;
   color: rgb(243, 243, 243);
-  font-weight: bold;
+  font-weight: 100;
+  box-shadow: -1px 9px 24px -10px rgba(0, 0, 0, 0.75);
+  -webkit-box-shadow: -1px 9px 24px -10px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: -1px 9px 24px -10px rgba(0, 0, 0, 0.75);
 }
 button.primary {
   background-color: #5f5fc9;
+}
+ol > li {
+  margin-bottom: 12px;
+}
+
+li > span {
+  color: #fa0000;
 }
 
 .link {

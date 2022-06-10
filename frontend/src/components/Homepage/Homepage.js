@@ -1,14 +1,24 @@
 import React from "react";
-import Link from "./Link/Link";
-import Queue from "./Queue/Queue";
 import Wrap from "../UI/Wrap";
-import "./Homepage.css";
+import Queue from "./Queue/Queue";
+import Link from "./Link/Link";
 
 const Homepage = () => {
+  const homepageStyle = {
+    minWidth: "20rem",
+    maxWidth: "90%",
+  };
+
+  const wrapStyle = {
+    display: "flex",
+    flexWrap: "wrap",
+    justifyContent: "center",
+  };
+
   return (
-    <div className="homepage">
+    <div style={homepageStyle}>
       <Wrap title="" backgroundColor="#6DD8CB">
-        <div className="wrap">
+        <div style={wrapStyle}>
           <Link />
           <Queue />
         </div>
