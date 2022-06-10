@@ -53,6 +53,7 @@ class UserController extends BaseController
 
         $response = [
             'message' => 'Login Succesful',
+            'user' => $user,
             'token' => $token
         ];
 
