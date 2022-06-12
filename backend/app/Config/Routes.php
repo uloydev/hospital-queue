@@ -38,9 +38,9 @@ $routes->set404Override();
 
 $routes->group("api", function ($routes) {
     $routes->post("login", "UserController::login");
-    $routes->post("admin/login", "UserController::login");
+    $routes->post("admin/login", "AdminController::login");
     $routes->post("register", "UserController::register");
-    $routes->get("user", "UserController::index", ["filter" => 'authFilter']);
+    $routes->get("user", "UserController::index", ["filter" => 'authAdminFilter']);
 });
 
 $routes->get('/', 'HomeController::index');
