@@ -5,7 +5,9 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 use App\Models\User;
 use CodeIgniter\API\ResponseTrait;
-use Firebase\JWT\JWT;
+
+use function App\Helper\generateJwtToken;
+use function App\Helper\getJwtClaims;
 
 class UserController extends BaseController
 {
@@ -13,6 +15,7 @@ class UserController extends BaseController
 
     public function __construct()
     {
+        helper('jwt');
         $this->model = new User();
     }
 
@@ -38,18 +41,7 @@ class UserController extends BaseController
             return $this->respond(['error' => 'Invalid username or password.'], 401);
         }
 
-        $key = getenv('JWT_SECRET');
-        $iat = time(); // current timestamp value
-        $exp = $iat + 3600;
-
-        $payload = array(
-            "iat" => $iat, //Time the JWT issued at
-            "exp" => $exp, // Expiration time of token
-            "id" => $user['id'],
-            "is_admin" => false,
-        );
-
-        $token = JWT::encode($payload, $key, 'HS256');
+        $token = generateJwtToken($user['id'], false);
 
         $response = [
             'message' => 'Login Succesful',
