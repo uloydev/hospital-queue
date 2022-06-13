@@ -45,6 +45,7 @@ $routes->group("api", function ($routes) {
     $routes->get("queue", "QueueController::index");
     $routes->get("queue/(:num)", "QueueController::show/$1");
     $routes->post("queue", "QueueController::store", ["filter" => "authUserFilter"]);
+    $routes->get("user/queue", "QueueController::userQueue", ["filter" => "authUserFilter"]);
 });
 
 $routes->get('/', 'HomeController::index');

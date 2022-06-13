@@ -45,4 +45,15 @@ class QueueController extends BaseController
 
         return $this->respond(['queue' => $this->model->find($queue_id)], 200);
     }
+
+    public function userQueue()
+    {
+        $claims = getJwtClaims($this->request);
+        return $this->respond([
+            'queue' => $this->model
+                ->where('user_id', $claims->id)
+                ->where('status !=', 'Selesai')
+                ->first()
+        ], 200);
+    }
 }
