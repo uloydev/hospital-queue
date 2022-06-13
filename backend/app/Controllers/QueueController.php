@@ -90,9 +90,35 @@ class QueueController extends BaseController
         return $this->respond(['success' => $this->model->update($queue_id, ["status" => "Pemeriksaan"])], 200);
     }
 
+    public function setNextQueue()
+    {
+        $currentQueue = $this->model->where('poli_id', $this->request->getVar('poli_id'))
+        ->where('status !=', 'selesai')
+        ->first();
+        if (is_null($currentQueue)) {
+            return $this->respond([
+                'message' => 'tidak ada antrian untuk poli ini',
+            ], 404);
+        }
+        return $this->respond(['success' => $this->model->update($currentQueue['id'], ["status" => "Selesai"])], 200);
+    }
+
     public function reset()
     {
         return $this->respond(['success' => $this->model->where("deleted_at is null")->delete()], 200);
+    }
+
+    public function setCheckNotification()
+    {
+        $currentQueue = $this->model->where('poli_id', $this->request->getVar('poli_id'))
+        ->where('status !=', 'selesai')
+        ->first();
+        if (is_null($currentQueue)) {
+            return $this->respond([
+                'message' => 'tidak ada antrian untuk poli ini',
+            ], 404);
+        }
+        return $this->respond(['success' => $this->model->update($currentQueue['id'], ["started_at" => (new DateTime())->format('Y-m-d H:i:s')])], 200);
     }
 
 }

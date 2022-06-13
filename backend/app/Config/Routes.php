@@ -51,6 +51,8 @@ $routes->group("api", function ($routes) {
     $routes->get("queue", "QueueController::index");
     $routes->post("queue", "QueueController::store", ["filter" => "authUserFilter"]);
     $routes->get("queue/reset", "QueueController::reset", ["filter" => 'authAdminFilter']);
+    $routes->post("queue/notify", "QueueController::setCheckNotification",["filter" => 'authAdminFilter']);
+    $routes->post("queue/next", "QueueController::setNextQueue", ["filter" => 'authAdminFilter']);
     $routes->get("queue/(:num)", "QueueController::show/$1");
     $routes->get("queue/(:num)/confirm-arrival", "QueueController::confirmArrival/$1", ["filter" => "authUserFilter"]);
     $routes->get("queue/(:num)/confirm-check", "QueueController::confirmCheck/$1", ["filter" => "authUserFilter"]);
