@@ -67,4 +67,9 @@ class QueueController extends BaseController
         return $this->respond(['success' => $this->model->update($queue_id, ["status" => "Pemeriksaan"])], 200);
     }
 
+    public function reset()
+    {
+        return $this->respond(['success' => $this->model->where("deleted_at is null")->delete()], 200);
+    }
+
 }

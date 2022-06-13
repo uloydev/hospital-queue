@@ -45,6 +45,7 @@ $routes->group("api", function ($routes) {
     $routes->get("poly", "PolyController::index");
     $routes->get("poly/counter", "PolyController::counter");
     $routes->get("queue", "QueueController::index");
+    $routes->get("queue/reset", "QueueController::reset", ["filter" => 'authAdminFilter']);
     $routes->post("queue", "QueueController::store", ["filter" => "authUserFilter"]);
     $routes->get("queue/(:num)", "QueueController::show/$1");
     $routes->get("queue/(:num)/confirm-arrival", "QueueController::confirmArrival/$1", ["filter" => "authUserFilter"]);
