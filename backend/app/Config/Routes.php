@@ -41,6 +41,7 @@ $routes->group("api", function ($routes) {
     $routes->post("admin/login", "AdminController::login");
     $routes->post("register", "UserController::register");
     $routes->get("user", "UserController::index", ["filter" => 'authAdminFilter']);
+    $routes->get("poly", "PolyController::index");
 });
 
 $routes->get('/', 'HomeController::index');
