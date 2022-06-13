@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use App\Models\Poly;
+use App\Models\Queue;
 use CodeIgniter\API\ResponseTrait;
 
 class PolyController extends BaseController
@@ -18,6 +19,22 @@ class PolyController extends BaseController
     public function index()
     {
         return $this->respond(['poly' => $this->model->findAll()], 200);
+    }
+
+    public function counter()
+    {
+        $queueModel = new Queue();
+        $polies = $this->model->findAll();
+
+        foreach ($polies as $key => $poly) {
+            $queue = $queueModel->where('poli_id', $poly['id'])
+                ->where('status !=', 'selesai')
+                ->first();
+
+            $polies[$key]['current_number'] = $queue['number'] ?? 0;
+        }
+
+        return $this->respond(['polies' => $polies], 200);
     }
 
 }
