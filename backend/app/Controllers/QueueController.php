@@ -62,4 +62,9 @@ class QueueController extends BaseController
         return $this->respond(['success' => $this->model->update($queue_id, ["status" => "Tiba"])], 200);
     }
 
+    public function confirmCheck($queue_id)
+    {
+        return $this->respond(['success' => $this->model->update($queue_id, ["status" => "Pemeriksaan"])], 200);
+    }
+
 }

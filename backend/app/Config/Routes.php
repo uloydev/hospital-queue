@@ -48,6 +48,7 @@ $routes->group("api", function ($routes) {
     $routes->post("queue", "QueueController::store", ["filter" => "authUserFilter"]);
     $routes->get("queue/(:num)", "QueueController::show/$1");
     $routes->get("queue/(:num)/confirm-arrival", "QueueController::confirmArrival/$1", ["filter" => "authUserFilter"]);
+    $routes->get("queue/(:num)/confirm-check", "QueueController::confirmCheck/$1", ["filter" => "authUserFilter"]);
 });
 
 $routes->get('/', 'HomeController::index');
