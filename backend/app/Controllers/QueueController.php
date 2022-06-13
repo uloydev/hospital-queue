@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 use CodeIgniter\API\ResponseTrait;
 use App\Models\Queue;
+use DateTime;
 
 use function App\Helper\getJwtClaims;
 
@@ -49,11 +50,22 @@ class QueueController extends BaseController
     public function userQueue()
     {
         $claims = getJwtClaims($this->request);
+
+        $queue = $this->model
+        ->where('user_id', $claims->id)
+        ->where('status !=', 'Selesai')
+        ->first();
+        
+        $currentQueue = $this->model->where('poli_id', $queue['poli_id'])
+        ->where('status !=', 'selesai')
+        ->first();
+
+        $queueDiff = $queue['number'] - $currentQueue['number'];
+        
         return $this->respond([
-            'queue' => $this->model
-                ->where('user_id', $claims->id)
-                ->where('status !=', 'Selesai')
-                ->first()
+            'queue' => $queue,
+            'show_arrive_notification' => $queueDiff <= 3 and $queueDiff > 0,
+            'show_check_notification' => !is_null($queue['started_at']),
         ], 200);
     }
 
