@@ -55,6 +55,12 @@ class QueueController extends BaseController
         ->where('user_id', $claims->id)
         ->where('status !=', 'Selesai')
         ->first();
+
+        if (is_null($queue)) {
+            return $this->respond([
+                'message' => 'tidak ada antrian untuk anda',
+            ], 404);
+        }
         
         $currentQueue = $this->model->where('poli_id', $queue['poli_id'])
         ->where('status !=', 'selesai')
