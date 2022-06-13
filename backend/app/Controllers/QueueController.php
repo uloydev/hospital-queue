@@ -71,7 +71,7 @@ class QueueController extends BaseController
         return $this->respond([
             'queue' => $queue,
             'show_arrive_notification' => $queueDiff <= 3 and $queueDiff > 0,
-            'show_check_notification' => !is_null($queue['started_at']),
+            'show_check_notification' => !is_null($queue['started_at']) and $queueDiff == 0,
         ], 200);
     }
 
