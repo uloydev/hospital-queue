@@ -37,4 +37,10 @@ class PolyController extends BaseController
         return $this->respond(['polies' => $polies], 200);
     }
 
+    public function changeStatus($poli_id)
+    {
+
+        return $this->respond(['success' => $this->model->update($poli_id, ["is_open" => $this->request->getVar('is_open')])], 200);
+    }
+
 }
