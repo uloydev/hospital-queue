@@ -41,12 +41,13 @@ $routes->group("api", function ($routes) {
     $routes->post("admin/login", "AdminController::login");
     $routes->post("register", "UserController::register");
     $routes->get("user", "UserController::index", ["filter" => 'authAdminFilter']);
+    $routes->get("user/queue", "QueueController::userQueue", ["filter" => "authUserFilter"]);
     $routes->get("poly", "PolyController::index");
     $routes->get("poly/counter", "PolyController::counter");
     $routes->get("queue", "QueueController::index");
-    $routes->get("queue/(:num)", "QueueController::show/$1");
     $routes->post("queue", "QueueController::store", ["filter" => "authUserFilter"]);
-    $routes->get("user/queue", "QueueController::userQueue", ["filter" => "authUserFilter"]);
+    $routes->get("queue/(:num)", "QueueController::show/$1");
+    $routes->get("queue/(:num)/confirm-arrival", "QueueController::confirmArrival/$1", ["filter" => "authUserFilter"]);
 });
 
 $routes->get('/', 'HomeController::index');

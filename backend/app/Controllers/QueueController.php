@@ -56,4 +56,10 @@ class QueueController extends BaseController
                 ->first()
         ], 200);
     }
+
+    public function confirmArrival($queue_id)
+    {
+        return $this->respond(['success' => $this->model->update($queue_id, ["status" => "Tiba"])], 200);
+    }
+
 }
