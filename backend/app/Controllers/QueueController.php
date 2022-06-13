@@ -75,6 +75,11 @@ class QueueController extends BaseController
         ], 200);
     }
 
+    public function polyQueue($poli_id)
+    {
+        return $this->respond(['queues' => $this->model->where('poli_id', $poli_id)->findAll()], 200);
+    }
+
     public function confirmArrival($queue_id)
     {
         return $this->respond(['success' => $this->model->update($queue_id, ["status" => "Tiba"])], 200);
