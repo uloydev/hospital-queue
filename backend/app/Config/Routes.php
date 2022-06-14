@@ -48,9 +48,8 @@ $routes->group("api", function ($routes) {
     $routes->get("poly/(:num)/queue", "QueueController::polyQueue/$1", ["filter" => 'authAdminFilter']);
     $routes->post("poly/(:num)/status", "PolyController::changeStatus/$1", ["filter" => 'authAdminFilter']);
 
-    $routes->get("queue", "QueueController::index");
     $routes->post("queue", "QueueController::store", ["filter" => "authUserFilter"]);
-    $routes->get("queue/reset", "QueueController::reset", ["filter" => 'authAdminFilter']);
+    $routes->post("queue/reset", "QueueController::reset", ["filter" => 'authAdminFilter']);
     $routes->post("queue/notify", "QueueController::setCheckNotification",["filter" => 'authAdminFilter']);
     $routes->post("queue/next", "QueueController::setNextQueue", ["filter" => 'authAdminFilter']);
     $routes->get("queue/(:num)", "QueueController::show/$1");
