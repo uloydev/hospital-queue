@@ -19,11 +19,6 @@ class QueueController extends BaseController
         $this->model = new Queue();
     }
 
-    public function index()
-    {
-        return $this->respond(['queues' => $this->model->findAll()], 200);
-    }
-
     public function show($queue_id)
     {
         return $this->respond(['queues' => $this->model->find($queue_id)], 200);
@@ -105,7 +100,7 @@ class QueueController extends BaseController
 
     public function reset()
     {
-        return $this->respond(['success' => $this->model->where("deleted_at is null")->delete()], 200);
+        return $this->respond(['success' => $this->model->where("deleted_at is null")->where('poli_id', $this->request->getVar('poli_id'))->delete()], 200);
     }
 
     public function setCheckNotification()
