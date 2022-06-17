@@ -1,5 +1,5 @@
 .wrap_about {
-  width: 60rem;
+  width: 50rem;
   max-width: 90%;
 }
 
@@ -11,7 +11,7 @@
 
 .about_image {
   width: 30%;
-  margin: 0 20px 10px 0;
+  margin: 0 35px 10px 0;
 }
 
 .about_image > img {
@@ -27,12 +27,21 @@
 }
 
 .about_desc > p {
-  margin-bottom: 20px;
+  margin-bottom: 40px;
 }
 
 .about_desc > p:last-of-type {
   font-size: 0.8rem;
   font-weight: bold;
+  margin-bottom: 20px;
+}
+.about_desc > div {
+  margin-bottom: 10px;
+}
+.icon {
+  font-size: 1.5rem;
+  transition: color 0.4 ease;
+  margin-right: 10px;
 }
 
 @media screen and (max-width: 850px) {

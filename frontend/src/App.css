@@ -5,6 +5,7 @@ html {
   padding: 0;
   box-sizing: border-box;
   color: #7b7989;
+  font-family: "Inter", sans-serif;
 }
 
 .form-control {
@@ -52,19 +53,24 @@ html {
   text-align: center;
 }
 
-.action > button {
+.action button {
   margin-top: 10px;
   padding: 0.5rem 4rem;
   border: none;
   cursor: pointer;
   color: rgb(243, 243, 243);
-  font-weight: 100;
   box-shadow: -1px 9px 24px -10px rgba(0, 0, 0, 0.75);
   -webkit-box-shadow: -1px 9px 24px -10px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: -1px 9px 24px -10px rgba(0, 0, 0, 0.75);
 }
 button.primary {
   background-color: #5f5fc9;
+}
+button.warning {
+  background-color: #f2b369;
+}
+button.bluedark {
+  background-color: #2301f5;
 }
 ol > li {
   margin-bottom: 12px;

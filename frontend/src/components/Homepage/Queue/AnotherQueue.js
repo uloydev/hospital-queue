@@ -15,7 +15,7 @@ const QueueItem = (props) => {
 const AnotherQueue = () => {
   return (
     <div className="wrap2">
-      <h2 style={{ marginBottom: "10px", fontSize: "1.4rem" }}>
+      <h2 style={{ marginBottom: "10px", fontSize: "1.3rem" }}>
         Antrian yang sedang berlangsung
       </h2>
       <QueueItem title="Poli Umum" count="1" />

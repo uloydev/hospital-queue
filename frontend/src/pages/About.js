@@ -2,6 +2,8 @@ import React from "react";
 import Wrap from "../components/UI/Wrap";
 import "./Pages.css";
 import ClinicImg from "../assets/images/klinik.png";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faInstagram, faWhatsapp } from "@fortawesome/free-brands-svg-icons";
 
 const About = () => {
   return (
@@ -9,7 +11,7 @@ const About = () => {
       <Wrap backgroundColor="#f1f1f1" title="Tentang Klinik">
         <div className="about">
           <div className="about_image">
-            <img src={ClinicImg} alt="" srcset="" />
+            <img alt="" srcSet={ClinicImg} />
             <div>
               <h4>Jam operasional: </h4>
               <p style={{ marginBottom: "10px" }}>Senin - Minggu 24 Jam</p>
@@ -25,6 +27,14 @@ const About = () => {
             </p>
 
             <p>Sosial media yang dapat dihubungi</p>
+            <div>
+              <FontAwesomeIcon icon={faWhatsapp} className="icon" />{" "}
+              082823642374
+            </div>
+            <div>
+              <FontAwesomeIcon icon={faInstagram} className="icon" />{" "}
+              klinikalbarokah
+            </div>
           </div>
         </div>
       </Wrap>

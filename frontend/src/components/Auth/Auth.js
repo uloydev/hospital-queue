@@ -106,7 +106,6 @@ const Auth = () => {
                 <label htmlFor="no_hp">No Handphone</label>
                 <input
                   type="text"
-                  name=""
                   id="no_hp"
                   required
                   onChange={(e) => setNoHpEntered(e.target.value)}
@@ -116,7 +115,6 @@ const Auth = () => {
                 <label htmlFor="alamat">Alamat</label>
                 <textarea
                   type="text"
-                  name=""
                   id="alamat"
                   required
                   onChange={(e) => setAlamatEntered(e.target.value)}
@@ -128,7 +126,6 @@ const Auth = () => {
             <label htmlFor="password">Password</label>
             <input
               type="password"
-              name=""
               id="password"
               required
               onChange={(e) => setPwdEntered(e.target.value)}
@@ -139,7 +136,6 @@ const Auth = () => {
               <label htmlFor="password_conf">Confirm Password</label>
               <input
                 type="password"
-                name=""
                 id="password_conf"
                 required
                 onChange={(e) => setPwdConfEntered(e.target.value)}

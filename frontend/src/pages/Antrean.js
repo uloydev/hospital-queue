@@ -1,7 +1,8 @@
 import React from "react";
+import AntreanForm from "../components/Antrean/AntreanForm";
 
 const Antrean = () => {
-  return <div>Antrean</div>;
+  return <AntreanForm />;
 };
 
 export default Antrean;
