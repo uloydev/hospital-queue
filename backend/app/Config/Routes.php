@@ -38,9 +38,23 @@ $routes->set404Override();
 
 $routes->group("api", function ($routes) {
     $routes->post("login", "UserController::login");
-    $routes->post("admin/login", "UserController::login");
+    $routes->post("admin/login", "AdminController::login");
     $routes->post("register", "UserController::register");
-    $routes->get("user", "UserController::index", ["filter" => 'authFilter']);
+    $routes->get("user", "UserController::index", ["filter" => 'authAdminFilter']);
+    $routes->get("user/queue", "QueueController::userQueue", ["filter" => "authUserFilter"]);
+
+    $routes->get("poly", "PolyController::index");
+    $routes->get("poly/counter", "PolyController::counter");
+    $routes->get("poly/(:num)/queue", "QueueController::polyQueue/$1", ["filter" => 'authAdminFilter']);
+    $routes->post("poly/(:num)/status", "PolyController::changeStatus/$1", ["filter" => 'authAdminFilter']);
+
+    $routes->post("queue", "QueueController::store", ["filter" => "authUserFilter"]);
+    $routes->post("queue/reset", "QueueController::reset", ["filter" => 'authAdminFilter']);
+    $routes->post("queue/notify", "QueueController::setCheckNotification",["filter" => 'authAdminFilter']);
+    $routes->post("queue/next", "QueueController::setNextQueue", ["filter" => 'authAdminFilter']);
+    $routes->get("queue/(:num)", "QueueController::show/$1");
+    $routes->get("queue/(:num)/confirm-arrival", "QueueController::confirmArrival/$1", ["filter" => "authUserFilter"]);
+    $routes->get("queue/(:num)/confirm-check", "QueueController::confirmCheck/$1", ["filter" => "authUserFilter"]);
 });
 
 $routes->get('/', 'HomeController::index');

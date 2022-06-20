@@ -16,7 +16,7 @@ const LinkItem = (props) => {
     MozBoxShadow: "7px 8px 8px -5px rgba(0,0,0,0.33)",
   };
   return (
-    <div style={itemStyle} className="item-link">
+    <div style={itemStyle} className="item-link" onClick={props.onClick}>
       {props.title}
     </div>
   );

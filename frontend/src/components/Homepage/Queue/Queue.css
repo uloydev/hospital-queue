@@ -2,7 +2,6 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  /* align-items: center; */
 }
 .wrap2 {
   display: flex;
@@ -38,7 +37,6 @@
 
 .queue-user {
   width: 180px;
-  height: 250px;
   margin-bottom: 10px;
 }
 .queue-user > h4 {
@@ -59,4 +57,8 @@
 }
 .queue-user h1 {
   font-size: 3rem;
+}
+.ilustration-img > img {
+  width: 100%;
+  height: 8rem;
 }
