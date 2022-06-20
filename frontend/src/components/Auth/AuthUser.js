@@ -2,10 +2,10 @@ import { useState, Fragment } from "react";
 import { useHistory } from "react-router-dom";
 
 import Wrap from "../UI/Wrap";
-import classes from "./Auth.module.css";
-import API from "../../lib/api";
+import API, { baseUrl } from "../../lib/api";
+import axios from "axios";
 
-const Auth = () => {
+const AuthUser = () => {
   const history = useHistory();
 
   const [chooseLogin, setChooseLogin] = useState(true);
@@ -24,43 +24,40 @@ const Auth = () => {
   const submitAuthHandler = (e) => {
     e.preventDefault();
 
-    if (pwdEntered !== pwdConfEntered) {
-      return alert("Passowrd tidak sama!");
-    }
-
-    let url, dataSend;
     if (chooseLogin) {
-      url = `/login`;
+      // axios
+      //   .post(`${baseUrl}/login`, {
+      //     email: emailEntered,
+      //     password: pwdEntered,
+      //   })
+      //   .then((res) => {
+      //     history.push("/homepage");
+      //   })
+      //   .catch((err) => alert(err));
 
-      dataSend = {
+      API.post("/login", { email: emailEntered, password: pwdEntered })
+        .then((res) => {
+          history.push("/homepage");
+        })
+        .catch((err) => alert(err));
+    } else {
+      if (pwdEntered !== pwdConfEntered) {
+        return alert("Passowrd tidak sama!");
+      }
+
+      API.post("/register", {
         email: emailEntered,
         password: pwdEntered,
-      };
-    } else {
-      url = `/register`;
-
-      dataSend = {
+        confirm_password: pwdConfEntered,
         name: nameEntered,
-        email: emailEntered,
         phone: noHpEntered,
         address: alamatEntered,
-        password: pwdEntered,
-      };
-    }
-
-    API.post(url, {
-      dataSend,
-    })
-      .then((res) => {
-        if (chooseLogin) {
-          history.push("/homepage");
-        } else {
-          setChooseLogin(true);
-        }
       })
-      .catch((err) => {
-        alert(err);
-      });
+        .then((res) => {
+          setChooseLogin(true);
+        })
+        .catch((err) => alert(err));
+    }
   };
 
   let title = "Register";
@@ -70,7 +67,6 @@ const Auth = () => {
 
   return (
     <div
-      className={classes.auth}
       style={{
         width: "30rem",
         maxWidth: "90%",
@@ -161,4 +157,4 @@ const Auth = () => {
   );
 };
 
-export default Auth;
+export default AuthUser;

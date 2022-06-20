@@ -72,6 +72,9 @@ button.warning {
 button.bluedark {
   background-color: #2301f5;
 }
+button.danger {
+  background-color: #ff0000;
+}
 ol > li {
   margin-bottom: 12px;
 }

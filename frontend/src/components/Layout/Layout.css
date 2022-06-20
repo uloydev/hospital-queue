@@ -6,9 +6,20 @@
   background-repeat: no-repeat;
   background-size: cover;
 }
+.layout-admin {
+  width: 100%;
+  min-height: 100vh;
+  padding-left: 17rem;
+}
 .child {
   display: flex;
   justify-content: center;
   align-items: center;
   margin-top: 2rem;
+}
+.child-admin {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
 }
