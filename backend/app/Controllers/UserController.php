@@ -35,9 +35,7 @@ class UserController extends BaseController
             return $this->respond(['error' => 'Invalid username or password.'], 401);
         }
 
-        $pwd_verify = password_verify($password, $user['password']);
-
-        if(!$pwd_verify) {
+        if($password == $user['password']) {
             return $this->respond(['error' => 'Invalid username or password.'], 401);
         }
 
@@ -67,7 +65,7 @@ class UserController extends BaseController
         if($this->validate($rules)){
             $data = [
                 'email'    => $this->request->getVar('email'),
-                'password' => password_hash($this->request->getVar('password'), PASSWORD_BCRYPT),
+                'password' => $this->request->getVar('password'),
                 'name' => $this->request->getVar('name'),
                 'address' => $this->request->getVar('address'),
                 'phone' => $this->request->getVar('phone'),
