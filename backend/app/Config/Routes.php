@@ -43,6 +43,7 @@ $routes->group("api", function ($routes) {
     $routes->post("login", "UserController::login");
     $routes->post("admin/login", "AdminController::login");
     $routes->post("register", "UserController::register");
+    $routes->put("user", "UserController::update", ["filter" => 'authUserFilter']);
     $routes->get("user", "UserController::index", ["filter" => 'authAdminFilter']);
     $routes->get("user/queue", "QueueController::userQueue", ["filter" => "authUserFilter"]);
 

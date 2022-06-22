@@ -81,4 +81,36 @@ class UserController extends BaseController
             return $this->fail($response , 409);
         }
     }
+
+    public function update()
+    {
+        $claims = getJwtClaims($this->request);
+        $rules = [
+            'email' => ['rules' => 'required|valid_email|is_unique[users.email]'],
+            'password' => ['rules' => 'required|min_length[8]'],
+            'name' => ['rules' => 'required'],
+            'address' => ['rules' => 'required'],
+            'phone' => ['rules' => 'required'],
+        ];
+        
+        if($this->validate($rules)){
+            $data = [
+                'id' => $claims->id,
+                'email'    => $this->request->getVar('email'),
+                'password' => $this->request->getVar('password'),
+                'name' => $this->request->getVar('name'),
+                'address' => $this->request->getVar('address'),
+                'phone' => $this->request->getVar('phone'),
+            ];
+            $this->model->save($data);
+
+            return $this->respond(['message' => 'User Updated Successfully', 'user' => $this->model->find($claims->id)], 200);
+        }else{
+            $response = [
+                'errors' => $this->validator->getErrors(),
+                'message' => 'Invalid Inputs'
+            ];
+            return $this->fail($response , 409);
+        }
+    }
 }
