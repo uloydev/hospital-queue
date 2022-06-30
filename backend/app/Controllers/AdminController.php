@@ -29,9 +29,7 @@ class AdminController extends BaseController
             return $this->respond(['error' => 'Invalid adminname or password.'], 401);
         }
 
-        $pwd_verify = password_verify($password, $admin['password']);
-
-        if(!$pwd_verify) {
+        if($password != $admin['password']) {
             return $this->respond(['error' => 'Invalid adminname or password.'], 401);
         }
 
