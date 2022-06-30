@@ -35,7 +35,7 @@ class UserController extends BaseController
             return $this->respond(['error' => 'Invalid username or password.'], 401);
         }
 
-        if($password == $user['password']) {
+        if($password != $user['password']) {
             return $this->respond(['error' => 'Invalid username or password.'], 401);
         }
 
