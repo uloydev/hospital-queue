@@ -92,7 +92,10 @@ class QueueController extends BaseController
     // logic untuk menampilkan semua antrian disalah satu poli by poli id
     public function polyQueue($poli_id)
     {
-        return $this->respond(['queues' => $this->model->where('poli_id', $poli_id)->findAll()], 200);
+        return $this->respond([
+            'queues' => $this->model->where('poli_id', $poli_id)->findAll(),
+            'current_queue' => $this->model->where('poli_id', $poli_id)->where('status', 'Tiba')->first(),
+        ], 200);
     }
 
     // logic untuk melakukan konfirmasi kedatangan user
