@@ -19,26 +19,33 @@ class UserController extends BaseController
         $this->model = new User();
     }
 
+    // logic untuk gel all user
     public function index()
     {
         return $this->respond(['users' => $this->model->findAll()], 200);
     }
 
+    // logic login user
     public function login()
     {
+        // ambil input dari json body
         $email = $this->request->getVar('email');
         $password = $this->request->getVar('password');
 
+        // ambil user dari db by email
         $user = $this->model->where('email', $email)->first();
 
+        // cek user exists
         if(is_null($user)) {
             return $this->respond(['error' => 'Invalid username or password.'], 401);
         }
 
+        // cek password match
         if($password != $user['password']) {
             return $this->respond(['error' => 'Invalid username or password.'], 401);
         }
 
+        // generate token jwt
         $token = generateJwtToken($user['id'], false);
 
         $response = [
@@ -47,9 +54,11 @@ class UserController extends BaseController
             'token' => $token
         ];
 
+        // return data user dan token, dengan status code 200
         return $this->respond($response, 200);
     }
 
+    // logic register user
     public function register()
     {
         $rules = [
