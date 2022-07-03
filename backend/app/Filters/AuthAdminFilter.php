@@ -9,6 +9,7 @@ use Exception;
 
 use function App\Helper\getJwtClaims;
 
+// admin middleware
 class AuthAdminFilter implements FilterInterface
 {
     /**
@@ -28,13 +29,18 @@ class AuthAdminFilter implements FilterInterface
      */
     public function before(RequestInterface $request, $arguments = null)
     {
+        // initiate helper jwt
         helper('jwt');
+
         try {
+            // ambil data user dari jwt token
             $claims = getJwtClaims($request);
+            // cek jwtnya admin atau bukan
             if (! $claims->is_admin) {
                 throw new Exception();
             }
         } catch (Exception $ex) {
+            // jika jwt bukan admin atau jwt kosong, return status code 401 
             $response = service('response');
             $response->setBody('Access denied');
             $response->setStatusCode(401);

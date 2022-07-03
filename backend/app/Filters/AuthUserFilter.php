@@ -28,13 +28,18 @@ class AuthUserFilter implements FilterInterface
      */
     public function before(RequestInterface $request, $arguments = null)
     {
+        // initiate helper jwt
         helper('jwt');
+
         try {
+            // ambil data user dari jwt token
             $claims = getJwtClaims($request);
+            // cek jwt admin atau bukan
             if ($claims->is_admin) {
                 throw new Exception();
             }
         } catch (Exception $ex) {
+            // jika jwt admin atau jwt kosong, return status code 401 
             $response = service('response');
             $response->setBody('Access denied');
             $response->setStatusCode(401);
