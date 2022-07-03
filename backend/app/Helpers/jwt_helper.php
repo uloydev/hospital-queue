@@ -39,8 +39,8 @@ function generateJwtToken($id, $is_admin)
     $key = getenv('JWT_SECRET');
     // ambil timestamp saat ini
     $iat = time(); // current timestamp value
-    // set expired token 3600 seconds
-    $exp = $iat + 3600;
+    // set expired token 3600 * 8 seconds
+    $exp = $iat + (3600 * 8);
 
     $payload = array(
         "iat" => $iat, //Time the JWT issued at
