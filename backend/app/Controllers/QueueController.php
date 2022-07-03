@@ -94,7 +94,8 @@ class QueueController extends BaseController
     {
         return $this->respond([
             'queues' => $this->model->where('poli_id', $poli_id)->findAll(),
-            'current_queue' => $this->model->where('poli_id', $poli_id)->where('status', 'Tiba')->first(),
+            'current_queue' => $this->model->where('poli_id', $poli_id)->where('status !=', 'Selesai')->first(),
+            'current_datetime' => (new DateTime())->format('Y-m-d H:i:s'),
         ], 200);
     }
 
@@ -115,7 +116,7 @@ class QueueController extends BaseController
     {
         // ambil antrian saat ini daru 1 poli
         $currentQueue = $this->model->where('poli_id', $this->request->getVar('poli_id'))
-        ->where('status !=', 'selesai')
+        ->where('status !=', 'Selesai')
         ->first();
 
         //cek antriannya exists
@@ -141,7 +142,7 @@ class QueueController extends BaseController
     {
         // ambil data antrian saat ini by poli id
         $currentQueue = $this->model->where('poli_id', $this->request->getVar('poli_id'))
-        ->where('status !=', 'selesai')
+        ->where('status !=', 'Selesai')
         ->first();
 
         // cek antrian exists
