@@ -6,6 +6,7 @@ use CodeIgniter\Database\Seeder;
 
 use App\Models\User;
 
+// genrator data dummy user
 class UserSeeder extends Seeder
 {
     public function run()

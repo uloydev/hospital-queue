@@ -5,6 +5,7 @@ namespace App\Database\Seeds;
 use CodeIgniter\Database\Seeder;
 use App\Models\Admin;
 
+// generator data dummy admin
 class AdminSeeder extends Seeder
 {
     public function run()
