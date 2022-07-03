@@ -40,25 +40,25 @@ $routes->options('(.*)', static function () {
 // route since we don't have to scan directories.
 
 $routes->group("api", function ($routes) {
-    $routes->post("login", "UserController::login");
-    $routes->post("admin/login", "AdminController::login");
-    $routes->post("register", "UserController::register");
-    $routes->put("user", "UserController::update", ["filter" => 'authUserFilter']);
-    $routes->get("user", "UserController::index", ["filter" => 'authAdminFilter']);
-    $routes->get("user/queue", "QueueController::userQueue", ["filter" => "authUserFilter"]);
+    $routes->post("login", "UserController::login"); // login user
+    $routes->post("admin/login", "AdminController::login"); // login admin
+    $routes->post("register", "UserController::register"); // user regist
+    $routes->put("user", "UserController::update", ["filter" => 'authUserFilter']); // update user
+    $routes->get("user", "UserController::index", ["filter" => 'authAdminFilter']); // get all user
+    $routes->get("user/queue", "QueueController::userQueue", ["filter" => "authUserFilter"]); // get user queue
 
-    $routes->get("poly", "PolyController::index");
-    $routes->get("poly/counter", "PolyController::counter");
-    $routes->get("poly/(:num)/queue", "QueueController::polyQueue/$1", ["filter" => 'authAdminFilter']);
-    $routes->post("poly/(:num)/status", "PolyController::changeStatus/$1", ["filter" => 'authAdminFilter']);
+    $routes->get("poly", "PolyController::index"); // get all poly
+    $routes->get("poly/counter", "PolyController::counter"); // get all poly counter number
+    $routes->get("poly/(:num)/queue", "QueueController::polyQueue/$1", ["filter" => 'authAdminFilter']); // get queue on specific poly
+    $routes->post("poly/(:num)/status", "PolyController::changeStatus/$1", ["filter" => 'authAdminFilter']); // update poly status, open or close
 
-    $routes->post("queue", "QueueController::store", ["filter" => "authUserFilter"]);
-    $routes->post("queue/reset", "QueueController::reset", ["filter" => 'authAdminFilter']);
-    $routes->post("queue/notify", "QueueController::setCheckNotification",["filter" => 'authAdminFilter']);
-    $routes->post("queue/next", "QueueController::setNextQueue", ["filter" => 'authAdminFilter']);
-    $routes->get("queue/(:num)", "QueueController::show/$1");
-    $routes->get("queue/(:num)/confirm-arrival", "QueueController::confirmArrival/$1", ["filter" => "authUserFilter"]);
-    $routes->get("queue/(:num)/confirm-check", "QueueController::confirmCheck/$1", ["filter" => "authUserFilter"]);
+    $routes->post("queue", "QueueController::store", ["filter" => "authUserFilter"]); // create queue or regist queue
+    $routes->post("queue/reset", "QueueController::reset", ["filter" => 'authAdminFilter']); // reset queue on specific poly
+    $routes->post("queue/notify", "QueueController::setCheckNotification",["filter" => 'authAdminFilter']); // set check notification to current queue
+    $routes->post("queue/next", "QueueController::setNextQueue", ["filter" => 'authAdminFilter']); // set current queue to completed 
+    $routes->get("queue/(:num)", "QueueController::show/$1"); // get queue by id
+    $routes->get("queue/(:num)/confirm-arrival", "QueueController::confirmArrival/$1", ["filter" => "authUserFilter"]); // confirm user arrival
+    $routes->get("queue/(:num)/confirm-check", "QueueController::confirmCheck/$1", ["filter" => "authUserFilter"]); // confirm user checking
 });
 
 /*
