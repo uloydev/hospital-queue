@@ -86,8 +86,6 @@ class UserController extends BaseController
     {
         $claims = getJwtClaims($this->request);
         $rules = [
-            'email' => ['rules' => 'required|valid_email|is_unique[users.email]'],
-            'password' => ['rules' => 'required|min_length[8]'],
             'name' => ['rules' => 'required'],
             'address' => ['rules' => 'required'],
             'phone' => ['rules' => 'required'],

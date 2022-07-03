@@ -16,16 +16,21 @@ class PolyController extends BaseController
         $this->model = new Poly();
     }
 
+    // logic buat nampilin semua poli
     public function index()
     {
         return $this->respond(['poly' => $this->model->findAll()], 200);
     }
 
+    // logic buat nampilin antrian dari semua poli
     public function counter()
     {
         $queueModel = new Queue();
+
+        // ambil semua data poli
         $polies = $this->model->findAll();
 
+        
         foreach ($polies as $key => $poly) {
             $queue = $queueModel->where('poli_id', $poly['id'])
                 ->where('status !=', 'selesai')
