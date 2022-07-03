@@ -4,6 +4,7 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
+// config Queue Model
 class Queue extends Model
 {
     protected $DBGroup          = 'default';

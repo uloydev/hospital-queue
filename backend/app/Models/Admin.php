@@ -4,6 +4,7 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
+// config Admin Model
 class Admin extends Model
 {
     protected $DBGroup          = 'default';

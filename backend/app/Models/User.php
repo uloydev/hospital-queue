@@ -4,6 +4,7 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
+// config User Model
 class User extends Model
 {
     protected $DBGroup          = 'default';

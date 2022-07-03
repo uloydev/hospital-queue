@@ -4,6 +4,7 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
+// config Poly Model
 class Poly extends Model
 {
     protected $DBGroup          = 'default';
