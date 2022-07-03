@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
+use App\Models\Poly;
 use CodeIgniter\API\ResponseTrait;
 use App\Models\Queue;
 use DateTime;
@@ -61,10 +62,13 @@ class QueueController extends BaseController
         ->where('status !=', 'selesai')
         ->first();
 
+        $poly = (new Poly())->find($queue['poli_id']);
+
         $queueDiff = $queue['number'] - $currentQueue['number'];
         
         return $this->respond([
             'queue' => $queue,
+            'poly' => $poly,
             'show_arrive_notification' => $queueDiff <= 3 and $queueDiff > 0,
             'show_check_notification' => !is_null($queue['started_at']) and $queueDiff == 0,
         ], 200);
