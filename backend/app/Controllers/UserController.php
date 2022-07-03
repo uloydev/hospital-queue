@@ -94,8 +94,6 @@ class UserController extends BaseController
         if($this->validate($rules)){
             $data = [
                 'id' => $claims->id,
-                'email'    => $this->request->getVar('email'),
-                'password' => $this->request->getVar('password'),
                 'name' => $this->request->getVar('name'),
                 'address' => $this->request->getVar('address'),
                 'phone' => $this->request->getVar('phone'),

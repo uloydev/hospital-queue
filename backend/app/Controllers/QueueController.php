@@ -20,13 +20,16 @@ class QueueController extends BaseController
         $this->model = new Queue();
     }
 
+    // menampilkan atrian by id
     public function show($queue_id)
     {
         return $this->respond(['queues' => $this->model->find($queue_id)], 200);
     }
 
+    // logic registrasi antrian pasien
     public function store()
     {
+        // mengambil data dari body json
         $data = [
             "name" => $this->request->getVar('name'),
             "phone" => $this->request->getVar('phone'),
@@ -35,11 +38,15 @@ class QueueController extends BaseController
             "poli_id" => $this->request->getVar('poli_id'),
             "number" => count($this->model->where('poli_id', $this->request->getVar('poli_id'))->findAll()) + 1,
         ];
+
+        // ambil data user yang login
         $claims = getJwtClaims($this->request);
         $data["user_id"] = $claims->id;
 
+        // menambahkan data registrasi antrian
         $queue_id = $this->model->insert($data);
 
+        // mengembalikan data antrian user dengan status code 200
         return $this->respond(['queue' => $this->model->find($queue_id)], 200);
     }
 
