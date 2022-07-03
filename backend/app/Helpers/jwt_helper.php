@@ -6,8 +6,10 @@ use Exception;
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 
+// logic untuk ambil jwt token dari header Authorization
 function getJwtClaims($request)
 {
+    // ambil jwt token dari header Authorization
     $header = $request->header("Authorization");
     $token = null;
 
@@ -22,14 +24,22 @@ function getJwtClaims($request)
     if (is_null($token) || empty($token)) {
         throw new Exception("invalid token");
     }
+
+    // ambil secret key dari .env
     $key = getenv('JWT_SECRET');
+
+    // return hasil decode jwt token
     return JWT::decode($token, new Key($key, 'HS256'));
 }
 
+// logic untuk generate jwt token
 function generateJwtToken($id, $is_admin)
 {
+    // ambil secret key dari .env
     $key = getenv('JWT_SECRET');
+    // ambil timestamp saat ini
     $iat = time(); // current timestamp value
+    // set expired token 3600 seconds
     $exp = $iat + 3600;
 
     $payload = array(
@@ -39,5 +49,6 @@ function generateJwtToken($id, $is_admin)
         "is_admin" => $is_admin,
     );
 
+    // encode payload to jwt token
     return JWT::encode($payload, $key, 'HS256');
 }
