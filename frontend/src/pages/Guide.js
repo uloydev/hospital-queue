@@ -1,7 +1,14 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 import Wrap from "../components/UI/Wrap";
 
 const Guide = () => {
+  const history = useHistory();
+
+  const clickBackHandler = () => {
+    history.push("/homepage");
+  };
+
   return (
     <div
       style={{
@@ -9,7 +16,12 @@ const Guide = () => {
         maxWidth: "90%",
       }}
     >
-      <Wrap backgroundColor="#f1f1f1" title="Panduan Pemakaian Website">
+      <Wrap
+        backgroundColor="#f1f1f1"
+        title="Panduan Pemakaian Website"
+        isBack
+        onClickBack={clickBackHandler}
+      >
         <ol style={{ textAlign: "justify" }}>
           <li>
             Login, jika belum mempunyai akun silahkan register terlebih dahulu.
