@@ -10,7 +10,11 @@ const MainNavigation = () => {
 
   const logoutHandler = () => {
     authCtx.logout();
-    history.push("/auth");
+    if (authCtx.isAdmin) {
+      history.push("/login-admin");
+    } else {
+      history.push("/auth");
+    }
   };
 
   return (

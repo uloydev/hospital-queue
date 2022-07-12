@@ -58,9 +58,18 @@ const AntreanForm = () => {
       .catch((err) => alert(err));
   };
 
+  const clickBackHandler = () => {
+    history.push("/homepage");
+  };
+
   return (
     <div className="wrap-antrean">
-      <Wrap backgroundColor="#f1f1f1" title="Isi data ambil antrean">
+      <Wrap
+        backgroundColor="#f1f1f1"
+        title="Isi data ambil antrean"
+        isBack
+        onClickBack={clickBackHandler}
+      >
         <div className="take-antrean">
           <div className="form">
             <form onSubmit={sumbitTakeAntrean}>

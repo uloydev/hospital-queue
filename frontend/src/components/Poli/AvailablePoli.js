@@ -47,26 +47,28 @@ const AvailablePoli = () => {
   }, []);
 
   useEffect(() => {
-    interval.current = setInterval(() => {
-      const now = new Date().getTime();
-      const t = deadline - now;
+    if (deadline !== 0) {
+      interval.current = setInterval(() => {
+        const now = new Date().getTime();
+        const t = deadline - now;
 
-      const minutes = Math.floor((t % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((t % (1000 * 60)) / 1000);
+        const minutes = Math.floor((t % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((t % (1000 * 60)) / 1000);
 
-      if (t < 0) {
+        if (t < 0) {
+          clearInterval(interval.current);
+          setMinutes("Waktu sudah habis");
+          setSeconds("silahkan menuju antrian selanjutnya!");
+        } else {
+          setMinutes(minutes);
+          setSeconds(seconds);
+        }
+      }, 1000);
+
+      return () => {
         clearInterval(interval.current);
-        setMinutes("Waktu sudah habis");
-        setSeconds("silahkan menuju antrian selanjutnya!");
-      } else {
-        setMinutes(minutes);
-        setSeconds(seconds);
-      }
-    }, 1000);
-
-    return () => {
-      clearInterval(interval.current);
-    };
+      };
+    }
   }, [deadline]);
 
   const resetQueueHandler = () => {

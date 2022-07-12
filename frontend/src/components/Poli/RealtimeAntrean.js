@@ -1,13 +1,21 @@
-import React from "react";
 import "./Button.css";
 
-const RealtimeAntrean = (props) => {
+const RealtimeAntrean = ({
+  polyId,
+  onDoneQueue,
+  onNotifyQueue,
+  currNumber,
+  minutes,
+  seconds,
+}) => {
   const doneQueueHandler = () => {
-    props.onDoneQueue(props.polyId);
+    onDoneQueue(polyId);
   };
+
   const notifyQueueHandler = () => {
-    props.onNotifyQueue(props.polyId);
+    onNotifyQueue(polyId);
   };
+
   return (
     <div>
       <h4
@@ -19,10 +27,9 @@ const RealtimeAntrean = (props) => {
         Nomor Antrean yang sedang berlangsung
       </h4>
       <div>
-        <span className="square">{props.currNumber}</span>
+        <span className="square">{currNumber}</span>
         <span className="desc">
-          {props}
-          {props.minutes}:{props.seconds}
+          {minutes}:{seconds}
         </span>
       </div>
       <div>
