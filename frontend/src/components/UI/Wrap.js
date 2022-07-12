@@ -1,4 +1,5 @@
 import React from "react";
+import BtnBack from "../../assets/images/btn_back.png";
 
 const Wrap = (props) => {
   const style = {
@@ -12,9 +13,31 @@ const Wrap = (props) => {
     MozBoxShadow: "7px 8px 8px -5px rgba(0,0,0,0.33)",
   };
 
+  const styleSpan = {
+    position: "absolute",
+    display: "block",
+    width: "30px",
+    height: "30px",
+    cursor: "pointer",
+  };
+
+  const backClickHandler = () => {
+    props.onClickBack();
+  };
+
   return (
     <div style={style}>
-      <h2 style={{ marginBottom: "30px" }}>{props.title}</h2>
+      <div>
+        {props.isBack && (
+          <img
+            srcSet={BtnBack}
+            alt=""
+            style={styleSpan}
+            onClick={backClickHandler}
+          />
+        )}
+        <h2 style={{ marginBottom: "30px" }}>{props.title}</h2>
+      </div>
       {props.children}
     </div>
   );

@@ -27,7 +27,7 @@ const MainQueue = (props) => {
         console.log(data);
         if (data) {
           if (data.show_arrive_notification) {
-            alert("Dateng kocak!");
+            alert("Silahkan datang menuju klinik!");
           }
           if (data.show_check_notification) {
             alert("Silahkan masuk ruangan dokter!");

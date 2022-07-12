@@ -75,6 +75,10 @@ const AuthUser = () => {
     title = "Login";
   }
 
+  const backClikHandler = () => {
+    setChooseLogin(true);
+  };
+
   return (
     <div
       style={{
@@ -82,7 +86,12 @@ const AuthUser = () => {
         maxWidth: "90%",
       }}
     >
-      <Wrap title={title} backgroundColor="#f1f1f1">
+      <Wrap
+        title={title}
+        backgroundColor="#f1f1f1"
+        isBack
+        onClickBack={backClikHandler}
+      >
         <form onSubmit={submitAuthHandler}>
           {!chooseLogin && (
             <div className="form-control">

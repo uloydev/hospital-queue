@@ -1,4 +1,3 @@
-import { Fragment } from "react";
 import TableItemPoli from "./TableItemPoli";
 import "./Table.css";
 

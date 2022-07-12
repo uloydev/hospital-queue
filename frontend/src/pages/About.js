@@ -3,12 +3,23 @@ import Wrap from "../components/UI/Wrap";
 import "./Pages.css";
 import ClinicImg from "../assets/images/klinik.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useHistory } from "react-router-dom";
 import { faInstagram, faWhatsapp } from "@fortawesome/free-brands-svg-icons";
 
 const About = () => {
+  const history = useHistory();
+
+  const clickBackHandler = () => {
+    history.push("/homepage");
+  };
   return (
     <div className="wrap_about">
-      <Wrap backgroundColor="#f1f1f1" title="Tentang Klinik">
+      <Wrap
+        backgroundColor="#f1f1f1"
+        title="Tentang Klinik"
+        isBack
+        onClickBack={clickBackHandler}
+      >
         <div className="about">
           <div className="about_image">
             <img alt="" srcSet={ClinicImg} />

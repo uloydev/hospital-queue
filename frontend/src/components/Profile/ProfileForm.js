@@ -50,6 +50,10 @@ const ProfileForm = () => {
       });
   };
 
+  const clickBackHandler = () => {
+    history.push("/homepage");
+  };
+
   return (
     <div
       style={{
@@ -57,7 +61,12 @@ const ProfileForm = () => {
         maxWidth: "90%",
       }}
     >
-      <Wrap title="Data Diri" backgroundColor="#f1f1f1">
+      <Wrap
+        title="Data Diri"
+        backgroundColor="#f1f1f1"
+        isBack
+        onClickBack={clickBackHandler}
+      >
         <form onSubmit={submitProfileHandler}>
           <div className="form-control">
             <label htmlFor="email">Email</label>
