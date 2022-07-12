@@ -1,9 +1,12 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import Wrap from "../UI/Wrap";
 import API from "../../lib/api";
+import AuthContext from "../../store/auth-context";
 
 export const AuthAdmin = () => {
+  const authCtx = useContext(AuthContext);
+
   const history = useHistory();
 
   const [emailEntered, setEmailEntered] = useState("");
@@ -12,14 +15,21 @@ export const AuthAdmin = () => {
   const submitAuthHandler = (e) => {
     e.preventDefault();
 
-    API.post("/admin/login", {
+    API.post(`/admin/login`, {
       email: emailEntered,
       password: pwdEntered,
     })
       .then((res) => {
+        return res.data;
+      })
+      .then((data) => {
+        authCtx.login(data.admin.id, data.token, true);
         history.push("/users");
       })
-      .catch((err) => alert(err));
+      .catch((err) => {
+        console.log(err.response.data.error);
+        alert(err.response.data.error);
+      });
   };
   return (
     <div

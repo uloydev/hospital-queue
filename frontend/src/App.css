@@ -75,12 +75,36 @@ button.bluedark {
 button.danger {
   background-color: #ff0000;
 }
+button.success {
+  background-color: #a0d995;
+}
+
+.success {
+  background-color: #a0d995;
+}
+.primary {
+  background-color: #5f5fc9;
+}
+.warning {
+  background-color: #f2b369;
+}
+
 ol > li {
   margin-bottom: 12px;
 }
 
 li > span {
   color: #fa0000;
+}
+input:disabled,
+button:disabled {
+  cursor: not-allowed;
+}
+.white {
+  color: white;
+}
+button:disabled {
+  background-color: #b6b6b6;
 }
 
 .link {

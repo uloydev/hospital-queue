@@ -1,11 +1,12 @@
-import { useState, Fragment } from "react";
+import { useState, Fragment, useContext } from "react";
 import { useHistory } from "react-router-dom";
 
 import Wrap from "../UI/Wrap";
-import API, { baseUrl } from "../../lib/api";
-import axios from "axios";
+import API from "../../lib/api";
+import AuthContext from "../../store/auth-context";
 
 const AuthUser = () => {
+  const authCtx = useContext(AuthContext);
   const history = useHistory();
 
   const [chooseLogin, setChooseLogin] = useState(true);
@@ -25,21 +26,29 @@ const AuthUser = () => {
     e.preventDefault();
 
     if (chooseLogin) {
-      // axios
-      //   .post(`${baseUrl}/login`, {
-      //     email: emailEntered,
-      //     password: pwdEntered,
-      //   })
-      //   .then((res) => {
-      //     history.push("/homepage");
-      //   })
-      //   .catch((err) => alert(err));
-
       API.post("/login", { email: emailEntered, password: pwdEntered })
         .then((res) => {
+          if (res.status === 401) {
+            return alert(res.error);
+          }
+          return res.data;
+        })
+        .then((user) => {
+          authCtx.login(
+            user.user.id,
+            user.token,
+            false,
+            user.user.name,
+            user.user.email,
+            user.user.phone,
+            user.user.address
+          );
           history.push("/homepage");
         })
-        .catch((err) => alert(err));
+        .catch((err) => {
+          console.log(err.response.data.error);
+          alert(err.response.data.error);
+        });
     } else {
       if (pwdEntered !== pwdConfEntered) {
         return alert("Passowrd tidak sama!");
@@ -54,9 +63,10 @@ const AuthUser = () => {
         address: alamatEntered,
       })
         .then((res) => {
+          alert("Data user berhasil ditambahkan!");
           setChooseLogin(true);
         })
-        .catch((err) => alert(err));
+        .catch((err) => alert(err.error));
     }
   };
 

@@ -1,22 +1,30 @@
-import { Fragment } from "react";
+import { Fragment, useContext } from "react";
 import MainNavigation from "./MainNavigation";
 import AdminNavigation from "./AdminNavigation";
 import "./Layout.css";
+import AuthContext from "../../store/auth-context";
 
 const Layout = (props) => {
-  return (
-    <Fragment>
-      <div className="layout">
-        <MainNavigation />
-        <div className="child">{props.children}</div>
-      </div>
-      {/* <div className="layout-admin">
+  const authCtx = useContext(AuthContext);
+
+  let content = (
+    <div className="layout">
+      <MainNavigation />
+      <div className="child">{props.children}</div>
+    </div>
+  );
+
+  if (authCtx.isAdmin) {
+    content = (
+      <div className="layout-admin">
         <MainNavigation />
         <AdminNavigation />
         <div className="child-admin">{props.children}</div>
-      </div> */}
-    </Fragment>
-  );
+      </div>
+    );
+  }
+
+  return <Fragment>{content}</Fragment>;
 };
 
 export default Layout;

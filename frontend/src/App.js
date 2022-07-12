@@ -1,5 +1,8 @@
 import "./App.css";
+import { Fragment, useContext } from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
+import AuthContext from "./store/auth-context";
+
 // user
 import Layout from "./components/Layout/Layout";
 import AuthUser from "./components/Auth/AuthUser";
@@ -12,37 +15,50 @@ import About from "./pages/About";
 // admin
 import AuthAdmin from "./components/Auth/AuthAdmin";
 import Users from "./components/Poli/Users/Users";
-import PoliGigi from "./components/Poli/Gigi/PoliGigi";
+import AvailablePoli from "./components/Poli/AvailablePoli";
 
 const App = () => {
+  const authCtx = useContext(AuthContext);
+
   return (
     <div className="App">
       <Layout>
         <Switch>
           <Route path="/" exact>
-            <Redirect to="/auth" />
+            {!authCtx.isLoggedIn && <Redirect to="/auth" />}
+            {authCtx.isLoggedIn && <Redirect to="/homepage" />}
           </Route>
           <Route path="/auth">
-            <AuthUser />
+            {authCtx.isLoggedIn && <Redirect to="/homepage" />}
+            {!authCtx.isLoggedIn && <AuthUser />}
           </Route>
         </Switch>
-        <Switch>
-          <Route path="/homepage">
-            <Homepage />
-          </Route>
-          <Route path="/take-antrean">
-            <Antrean />
-          </Route>
-          <Route path="/profile">
-            <Profile />
-          </Route>
-          <Route path="/guide">
-            <Guide />
-          </Route>
-          <Route path="/about">
-            <About />
-          </Route>
-        </Switch>
+
+        <Fragment>
+          <Switch>
+            <Route path="/homepage">
+              {authCtx.isLoggedIn && <Homepage />}
+              {!authCtx.isLoggedIn && <Redirect to="/auth" />}
+            </Route>
+            <Route path="/take-antrean">
+              {authCtx.isLoggedIn && <Antrean />}
+              {!authCtx.isLoggedIn && <Redirect to="/auth" />}
+            </Route>
+            <Route path="/profile">
+              {authCtx.isLoggedIn && <Profile />}
+              {!authCtx.isLoggedIn && <Redirect to="/auth" />}
+            </Route>
+            <Route path="/guide">
+              {authCtx.isLoggedIn && <Guide />}
+              {!authCtx.isLoggedIn && <Redirect to="/auth" />}
+            </Route>
+            <Route path="/about">
+              {authCtx.isLoggedIn && <About />}
+              {!authCtx.isLoggedIn && <Redirect to="/auth" />}
+            </Route>
+          </Switch>
+        </Fragment>
+
         <Switch>
           <Route path="/login-admin">
             <AuthAdmin />
@@ -50,8 +66,8 @@ const App = () => {
           <Route path="/users">
             <Users />
           </Route>
-          <Route path="/poli-gigi">
-            <PoliGigi />
+          <Route path="/poli/:polyId/queue">
+            <AvailablePoli />
           </Route>
         </Switch>
       </Layout>

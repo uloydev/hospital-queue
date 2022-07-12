@@ -7,9 +7,9 @@
   background-size: cover;
 }
 .layout-admin {
-  width: 100%;
   min-height: 100vh;
   padding-left: 17rem;
+  padding-right: 2rem;
 }
 .child {
   display: flex;

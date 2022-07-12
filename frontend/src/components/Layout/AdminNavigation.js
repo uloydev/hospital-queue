@@ -9,16 +9,16 @@ const AdminNavigation = () => {
           <Link to="/users">Users</Link>
         </li>
         <li>
-          <Link to="/poli-umum">Poli Umum</Link>
+          <Link to="/poli/1/queue">Poli Umum</Link>
         </li>
         <li>
-          <Link to="/poli-tht">Poli THT</Link>
+          <Link to="/poli/2/queue">Poli Gigi</Link>
         </li>
         <li>
-          <Link to="/poli-gigi">Poli Gigi</Link>
+          <Link to="/poli/3/queue">Poli THT</Link>
         </li>
         <li>
-          <Link to="/poli-kebidanan">Poli Kebidanan</Link>
+          <Link to="/poli/4/queue">Poli Kebidanan</Link>
         </li>
       </ul>
     </nav>

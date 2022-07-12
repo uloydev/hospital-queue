@@ -1,31 +1,60 @@
-import { useState } from "react";
+import { useState, useContext, useRef, useEffect } from "react";
+import AuthContext from "../../store/auth-context";
+import axios from "axios";
 import Wrap from "../UI/Wrap";
 import { useHistory } from "react-router-dom";
 import "./Antrean.css";
-import API from "../../lib/api";
+import { baseUrl } from "../../lib/api";
 
 const AntreanForm = () => {
   const history = useHistory();
 
+  const authCtx = useContext(AuthContext);
+  const polyId = useRef();
+
   const [nameEntered, setNameEntered] = useState("");
   const [alamatEntered, setAlamatEntered] = useState("");
   const [noHpEntered, setNoHpEntered] = useState("");
-  const [poliChange, setPoliChange] = useState("");
   const [complainEntered, setComplainEntered] = useState("");
+
+  const [polys, setPolys] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get(`${baseUrl}/poly`)
+      .then((res) => {
+        return res.data.poly;
+      })
+      .then((data) => {
+        setPolys(data);
+      })
+      .catch((err) => console.log(err));
+  }, []);
 
   const sumbitTakeAntrean = (e) => {
     e.preventDefault();
 
-    const data = {
-      name: nameEntered,
-      address: alamatEntered,
-      phone: noHpEntered,
-      poli: poliChange,
-      complain: complainEntered,
-    };
-
-    API.post("/new-antrean", data)
-      .then((res) => history.push("/homepage"))
+    axios
+      .post(
+        `${baseUrl}/queue`,
+        {
+          name: nameEntered,
+          phone: noHpEntered,
+          address: alamatEntered,
+          poli_id: polyId.current.value,
+          complaint: complainEntered,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${authCtx.token}`,
+          },
+        }
+      )
+      .then((res) => {
+        alert("Berhasil menambah antrean");
+        history.push("/homepage");
+      })
       .catch((err) => alert(err));
   };
 
@@ -70,14 +99,19 @@ const AntreanForm = () => {
                 <select
                   name=""
                   id="poli"
-                  onChange={(e) => setPoliChange(e.target.value)}
+                  ref={polyId}
                   required
                   style={{ width: "100%" }}
                 >
-                  <option value="umum">Poli umum</option>
-                  <option value="gigi">Poli gigi</option>
-                  <option value="tht">Poli tht</option>
-                  <option value="bidan">Poli bidan</option>
+                  {polys?.map((item) =>
+                    item.is_open === "1" ? (
+                      <option key={item.id} value={item.id}>
+                        {item.name}
+                      </option>
+                    ) : (
+                      ""
+                    )
+                  )}
                 </select>
               </div>
               <div className="form-control">
@@ -106,8 +140,7 @@ const AntreanForm = () => {
                 dipanggil melalui notifikasi yang ada di website.
               </li>
               <li>
-                Untuk poli yang tidak bisa dipilih/diklik menandakan poli
-                tersebut sedang ditutup.
+                Untuk poli yang sudah tutup, tidak ditampilkan dalam form poli.
               </li>
               <li>
                 Pasien diberi waktu 10 menit saat sudah giliran nomer antriannya
